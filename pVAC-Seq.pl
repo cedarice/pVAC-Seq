@@ -89,7 +89,7 @@ else                           { print "COMPLETED"; }
 
 ### Valid NETMHC Allele list ###
 
-my $netmhc_a = `$netmhc_path -A`;
+my $netmhc_a = `$netmhc_path -listMHC`;
 my @allele_arr = split( "\n", $netmhc_a );
 
 @allele      = split( /,/, join( ',', @allele ) );
@@ -102,16 +102,16 @@ foreach my $epl (@epitope_len) {
             my $net_out = $sample_name . '.' . $a . '.' . $epl . '.netmhc.xls';
             print "\n#RUNNING NETMHC ON ALLELE $a AND EPITOPE LENGTH $epl\n";
             my $netmhc_cmd =
-'$netmhc_path -a $a -l $epl $output_dir/$fasta_file -x $output_dir/$net_out';
+'$netmhc_path -a $a -l $epl $output_dir/$fasta_file -xls -xlsfile $output_dir/$net_out';
             my $tmp =
-`$netmhc_path -a $a -l $epl $output_dir/$fasta_file -x $output_dir/$net_out`;
+`$netmhc_path -a $a -l $epl $output_dir/$fasta_file -xls -xlsfile $output_dir/$net_out`;
 
         }
         else {
             print "NetMHC allele not valid. Please check using"
-              . $netmhc_path . '-A';
+              . $netmhc_path . '-listMHC';
         }
-        print "COMPLETED";
+        print " COMPLETED";
     }
 
 }
